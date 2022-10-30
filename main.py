@@ -25,10 +25,14 @@ async def shorturl_post(request):
 
 async def handler(request):
     name_url = request.match_info.get('name')
-    database = request.app['db']
-    collection = database['shorturl']
-    obj_url = await collection.find_one({'_id': ObjectId(name_url)})
-    select_url = obj_url['user_url']
+    try:
+        database = request.app['db']
+        collection = database['shorturl']
+        obj_url = await collection.find_one({'_id': ObjectId(name_url)})
+        select_url = obj_url['user_url']
+    except Exception as err:
+        return web.Response(text=str(err))
+
     if 'http://' in select_url or 'https://' in select_url:
         return web.HTTPFound(select_url)
     else:
