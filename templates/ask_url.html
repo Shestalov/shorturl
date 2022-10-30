@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block title %}Short URL{% endblock %}
+
+{% block content %}
+<div class="container p-5 my-5 border rounded">
+    <h1 class="text-center mb-5">Paste the URL to be shortened</h1>
+    <form action="/" method="POST">
+        <div class="input-group">
+            <input type="text" id="user_url" name="user_url" class="form-control" placeholder="Enter the link here">
+            <label for="user_url" class="form-label"></label>
+            <button type="submit" class="btn btn-primary">Shorten URL</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

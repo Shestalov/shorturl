@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block title %}Shorted URL{% endblock %}
+
+{% block content %}
+<div class="container p-5 my-5 border rounded">
+    <h1 class="text-center mb-5">Your shortened URL</h1>
+    <div class="input-group mb-5">
+        <input type="text" id="user_url" name="user_url" class="form-control"
+               value="{{ short_url }}">
+        <label for="user_url" class="form-label"></label>
+        <button onclick="myFunction()" class="btn btn-primary">Copy</button>
+    </div>
+    <div>
+        <a href="{{ short_url }}">Visit short_url</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    function myFunction() {
+        // Get the text field
+        var copyText = document.getElementById("user_url");
+
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+
+        // Alert the copied text
+        alert("Copied the text: " + copyText.value);
+    }
+</script>
+{% endblock %}
