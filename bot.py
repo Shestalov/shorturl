@@ -1,8 +1,9 @@
+import os
 import asyncio
 from aiogram import Bot, Dispatcher, types
 from db import setup_db
-import os
 from bson import ObjectId
+from bson.errors import InvalidId
 
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
 
@@ -32,10 +33,13 @@ async def send_url(event: types.Message):
     url_id = event.text
     db = await setup_db()
     collection = db['shorturl']
-    obj_url = await collection.find_one({'_id': ObjectId(url_id)})
-    prefix = str(obj_url.get('prefix', 'http'))
-    url_without_prefix = str(obj_url.get('user_url'))
-    await event.answer(prefix + '://' + url_without_prefix)
+    try:
+        obj_url = await collection.find_one({'_id': ObjectId(url_id)})
+        prefix = str(obj_url.get('prefix', 'http'))
+        url_without_prefix = str(obj_url.get('user_url'))
+        await event.answer(prefix + '://' + url_without_prefix)
+    except InvalidId:
+        await event.answer('Wrong url_id or URL is not correct (URL must start with hhtp)')
 
 
 async def main():
