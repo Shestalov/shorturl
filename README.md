@@ -1,14 +1,7 @@
 ## Example project with Aiohttp
 
-**Install to docker and run mongo db:**
+#### Web and Telegram bot services for url shortening.
 
-https://hub.docker.com/_/mongo
+Run application
 
-`$ docker run --name some-mongo -d mongo:tag`
-
-**Environment variable:**
-
-    DB_HOST=127.0.0.1;  
-    DB_PASSWORD=admin;
-    DB_PORT=27017;
-    DB_USERNAME=admin
+`$ docker compose up -d`
